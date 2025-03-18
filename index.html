@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUILD YOUR JAMAICA</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- Add Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="funds-box">
+            <h2>Funds Available</h2>
+            <p class="funds-amount">$110 Billion</p>
+        </div>
+        
+        <div class="title-container">
+            <h1>BUILD YOUR JAMAICA</h1>
+            <p class="subtitle">IF YOU WERE THE PRIME MINISTER OF JAMAICA, WHAT KIND OF JAMAICA WOULD YOU CREATE?</p>
+            <p class="subtitle">ALLOCATE FUNDS IN THE COUNTRY'S BUDGET TO FIND OUT!</p>
+        </div>
+        
+        <div class="needs-box">
+            <h2>What the Country Needs</h2>
+            <p class="needs-subtitle">CLICK ON THE SECTOR ICONS BELOW TO LEARN WHAT EACH SECTOR NEEDS!</p>
+            <table class="needs-table">
+                <tr>
+                    <td>
+                        <div class="sector-title">Health</div>
+                        <button class="sector-btn" id="health-btn">
+                            <i class="fas fa-heartbeat sector-icon"></i>
+                        </button>
+                        <div class="sector-value" id="health-value">$50B</div>
+                    </td>
+                    <td>
+                        <div class="sector-title">Education</div>
+                        <button class="sector-btn">
+                            <i class="fas fa-graduation-cap sector-icon"></i>
+                        </button>
+                        <div class="sector-value" id="education-value">$40B</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="sector-title">Security</div>
+                        <button class="sector-btn">
+                            <i class="fas fa-shield-alt sector-icon"></i>
+                        </button>
+                        <div class="sector-value" id="security-value">$40B</div>
+                    </td>
+                    <td>
+                        <div class="sector-title">Infrastructure</div>
+                        <button class="sector-btn">
+                            <i class="fas fa-road sector-icon"></i>
+                        </button>
+                        <div class="sector-value" id="infrastructure-value">$40B</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="sector-title">Debt</div>
+                        <button class="sector-btn">
+                            <i class="fas fa-money-bill-wave sector-icon"></i>
+                        </button>
+                        <div class="sector-value" id="debt-value">$30B</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="container">
+            <div class="chart-container">
+                <div class="chart-instructions">
+                    <p><strong>How to use the Budget Pie Chart:</strong></p>
+                    <p>1. Click on any sector in the pie chart to allocate funds</p>
+                    <p>2. Enter the amount you want to assign to that sector</p>
+                    <p>3. Click "Save" to update your budget</p>
+                    <p>4. When you're happy with your budget allocation, click the "Submit" button</p>
+                </div>
+                <div class="chart-banner-instruction">Click and Change The Figures For Each Sector!</div>
+                <canvas id="budgetPieChart"></canvas>
+            </div>
+            <button class="submit-btn">Submit Your Budget</button>
+        </div>
+        
+        <button id="resetButton" class="reset-btn">Reset Budget</button>
+    </div>
+    
+    <!-- Modal for budget input -->
+    <div id="budgetModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modalSectorTitle">Sector</h2>
+            <p>Enter budget allocation (in billions):</p>
+            <input type="number" id="budgetInput" min="1" max="110" step="1">
+            <div class="modal-buttons">
+                <button id="saveBudget">Save</button>
+                <button id="cancelBudget">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Video modal for playing sector videos -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-close-button">&times;</span>
+            <h2 id="videoModalTitle">Sector Information</h2>
+            <div class="video-container">
+                <video id="sectorVideo" width="100%" controls>
+                    <!-- Video source will be set dynamically -->
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio elements for button sounds -->
+    <audio id="clickSound" preload="auto">
+        <source src="audio/ui_button_simple_click_03.wav" type="audio/wav">
+    </audio>
+    <audio id="pieClickSound" preload="auto">
+        <source src="audio/ui_click_tick_01.wav" type="audio/wav">
+    </audio>
+    
+    <!-- Error Modal for budget allocation errors -->
+    <div id="errorModal" class="error-modal">
+        <div class="error-modal-content">
+            <span class="error-close-button">&times;</span>
+            <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h2>Budget Exceeded!</h2>
+            <p id="errorMessage">Cannot allocate more than the available budget.</p>
+            <button id="errorOkButton" class="error-ok-button">OK</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="responsive.js"></script>
+</body>
+</html>
